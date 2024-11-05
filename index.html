@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Resume Builder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Professional Resume Builder</h1>
+    <form id="resumeForm">
+        <fieldset>
+            <legend>Personal Information</legend>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="linkedin">LinkedIn Profile:</label>
+            <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/your-profile">
+        </fieldset>
+
+        <fieldset>
+            <legend>Education</legend>
+            <label for="education">Education</label>
+            <textarea id="education" name="education" rows="3" required></textarea>
+        </fieldset>
+
+        <fieldset>
+            <legend>Experience</legend>
+            <label for="experience">Experience</label>
+            <textarea id="experience" name="experience" rows="3" required></textarea>
+        </fieldset>
+
+        <fieldset>
+            <legend>Projects</legend>
+            <label for="projects">Projects</label>
+            <textarea id="projects" name="projects" rows="3" placeholder="Describe your projects here"></textarea>
+        </fieldset>
+
+        <fieldset>
+            <legend>Skills</legend>
+            <label for="skills">Skills</label>
+            <textarea id="skills" name="skills" rows="3" required></textarea>
+        </fieldset>
+
+        <fieldset>
+            <legend>Additional Information</legend>
+            <label for="certifications">Certifications</label>
+            <textarea id="certifications" name="certifications" rows="2" placeholder="List your certifications"></textarea>
+
+            <label for="languages">Languages</label>
+            <input type="text" id="languages" name="languages" placeholder="e.g., English, Spanish">
+        </fieldset>
+
+        <button type="button" onclick="generateResume()">Generate Resume Below</button>
+    </form>
+
+    <!-- Resume Output Section -->
+    <div id="resumeOutput" style="display:none; margin-top: 20px;">
+        <h2>Generated Resume</h2>
+        <div id="resumeContent"></div>
+    </div>
+
+    <script>
+        function generateResume() {
+            // Capture form data
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const phone = document.getElementById("phone").value;
+            const linkedin = document.getElementById("linkedin").value;
+            const education = document.getElementById("education").value;
+            const experience = document.getElementById("experience").value;
+            const projects = document.getElementById("projects").value;
+            const skills = document.getElementById("skills").value;
+            const certifications = document.getElementById("certifications").value;
+            const languages = document.getElementById("languages").value;
+
+            // Build the resume HTML content
+            const resumeContent = `
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Phone:</strong> ${phone}</p>
+                ${linkedin ? `<p><strong>LinkedIn:</strong> <a href="${linkedin}" target="_blank">${linkedin}</a></p>` : ""}
+                <hr>
+                <h3>Education</h3>
+                <p>${education.replace(/\n/g, '<br>')}</p>
+                <h3>Experience</h3>
+                <p>${experience.replace(/\n/g, '<br>')}</p>
+                ${projects ? `<h3>Projects</h3><p>${projects.replace(/\n/g, '<br>')}</p>` : ""}
+                <h3>Skills</h3>
+                <p>${skills.replace(/\n/g, '<br>')}</p>
+                ${certifications ? `<h3>Certifications</h3><p>${certifications.replace(/\n/g, '<br>')}</p>` : ""}
+                ${languages ? `<h3>Languages</h3><p>${languages}</p>` : ""}
+            `;
+
+            // Display the resume
+            document.getElementById("resumeContent").innerHTML = resumeContent;
+            document.getElementById("resumeOutput").style.display = "block";
+        }
+    </script>
+</body>
+</html>
